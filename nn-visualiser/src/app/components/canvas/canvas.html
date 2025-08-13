@@ -1,0 +1,87 @@
+<div class="toolbar">
+  <button (click)="openNodeModal()">Add Node</button>
+  <button (click)="openLayerModal()">Add Layer</button>
+  <button (click)="toggleConnectMode()" [class.active]="connectMode">
+    {{ connectMode ? "Cancel Connect" : "Connect" }}
+  </button>
+  <button
+    (click)="toggleFullyConnectedMode()"
+    [class.active]="fullyConnectedMode"
+  >
+    {{ fullyConnectedMode ? "Cancel Fully Connected" : "Fully Connected" }}
+  </button>
+  <button (click)="createFullyConnected()" *ngIf="fullyConnectedMode">
+    Create Fully Connected
+  </button>
+  <button (click)="deleteSelectedNodes()">Delete Nodes</button>
+  <button (click)="deleteSelectedEdges()">Delete Edges</button>
+</div>
+
+<!-- Node Modal -->
+<div class="modal-overlay" *ngIf="showNodeModal" (click)="closeNodeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Add Node</h3>
+    <div class="form-group">
+      <label>Node ID:</label>
+      <input
+        type="text"
+        [(ngModel)]="nodeParams.id"
+        placeholder="Enter unique node ID"
+      />
+    </div>
+    <div class="form-group">
+      <label>Layer ID:</label>
+      <input
+        type="text"
+        [(ngModel)]="nodeParams.layerId"
+        placeholder="Enter layer ID"
+      />
+    </div>
+    <div class="form-group">
+      <label>X Position:</label>
+      <input type="number" [(ngModel)]="nodeParams.x" />
+    </div>
+    <div class="form-group">
+      <label>Y Position:</label>
+      <input type="number" [(ngModel)]="nodeParams.y" />
+    </div>
+    <div class="modal-buttons">
+      <button (click)="closeNodeModal()">Cancel</button>
+      <button (click)="addNode()">Add Node</button>
+    </div>
+  </div>
+</div>
+
+<!-- Layer Modal -->
+<div class="modal-overlay" *ngIf="showLayerModal" (click)="closeLayerModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h3>Add Layer</h3>
+    <div class="form-group">
+      <label>Number of nodes:</label>
+      <input type="number" [(ngModel)]="layerParams.count" min="1" />
+    </div>
+    <div class="form-group">
+      <label>Vertical spacing:</label>
+      <input type="number" [(ngModel)]="layerParams.spacing" min="20" />
+    </div>
+    <div class="form-group">
+      <label>Start X position:</label>
+      <input type="number" [(ngModel)]="layerParams.startX" />
+    </div>
+    <div class="form-group">
+      <label>Start Y position:</label>
+      <input type="number" [(ngModel)]="layerParams.startY" />
+    </div>
+    <div class="modal-buttons">
+      <button (click)="closeLayerModal()">Cancel</button>
+      <button (click)="addLayer()">Add Layer</button>
+    </div>
+  </div>
+</div>
+
+<canvas
+  #canvas
+  width="1200"
+  height="800"
+  style="border: 1px solid #ccc"
+></canvas>
