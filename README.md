@@ -13,7 +13,6 @@ Displays each layer with its type, dimensions, parameters, and connections using
 - Clickable layers show detailed information
 - Dynamic updates reflect changes in architecture instantly
 - Calculates output shapes for common layer types (Conv2D, Pooling, Dense, etc.)
-- Sample model included for quick testing
 
 ---
 
