@@ -10,7 +10,6 @@ Displays each layer with its type, dimensions, parameters, and connections using
 - Define neural network architecture via JSON or form input
 - Interactive visualization of layers with input/output dimensions
 - Displays layer parameters and activation functions
-- Clickable layers show detailed information
 - Dynamic updates reflect changes in architecture instantly
 - Calculates output shapes for common layer types (Conv2D, Pooling, Dense, etc.)
 
