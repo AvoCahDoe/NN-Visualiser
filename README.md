@@ -43,23 +43,6 @@ cd nn-visualize
 
 - Load example architectures from the mock data folder.
 
-### Project Structure
-
-```bash
-
-src/app/components/architecture-input — UI to input or edit architecture JSON
-
-src/app/components/architecture-viewer — D3.js based visualization
-
-src/app/components/layer-details — Displays detailed info for selected layer
-
-src/app/services/architecture.service.ts — Centralized state management
-
-src/app/models/layer.model.ts — TypeScript interfaces for layers
-
-src/assets/mock-data/sample-architecture.json — Example neural network
-
-```
 
 ### Technologies Used
 
