@@ -1,0 +1,48 @@
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "name": "Simple MLP",
+  "version": 1,
+  "inputShape": [784],
+  "layers": [
+    {
+      "id": "b1b2c3d4-e5f6-7890-abcd-ef1234567891",
+      "type": "input",
+      "params": {},
+      "position": { "x": 50, "y": 150 },
+      "nodeCount": 1
+    },
+    {
+      "id": "c1b2c3d4-e5f6-7890-abcd-ef1234567892",
+      "type": "dense",
+      "params": { "units": 128 },
+      "activation": "relu",
+      "position": { "x": 270, "y": 150 },
+      "nodeCount": 128
+    },
+    {
+      "id": "d1b2c3d4-e5f6-7890-abcd-ef1234567893",
+      "type": "dense",
+      "params": { "units": 64 },
+      "activation": "relu",
+      "position": { "x": 490, "y": 150 },
+      "nodeCount": 64
+    },
+    {
+      "id": "e1b2c3d4-e5f6-7890-abcd-ef1234567894",
+      "type": "output",
+      "params": { "units": 10 },
+      "activation": "softmax",
+      "position": { "x": 710, "y": 150 },
+      "nodeCount": 10
+    }
+  ],
+  "edges": [
+    { "from": "b1b2c3d4-e5f6-7890-abcd-ef1234567891", "to": "c1b2c3d4-e5f6-7890-abcd-ef1234567892", "weight": 0.5 },
+    { "from": "c1b2c3d4-e5f6-7890-abcd-ef1234567892", "to": "d1b2c3d4-e5f6-7890-abcd-ef1234567893", "weight": 0.3 },
+    { "from": "d1b2c3d4-e5f6-7890-abcd-ef1234567893", "to": "e1b2c3d4-e5f6-7890-abcd-ef1234567894", "weight": 0.8 }
+  ],
+  "metadata": {
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "updatedAt": "2026-01-01T00:00:00.000Z"
+  }
+}

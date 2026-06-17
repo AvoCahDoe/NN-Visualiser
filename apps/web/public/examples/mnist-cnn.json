@@ -1,0 +1,83 @@
+{
+  "id": "f1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "name": "MNIST CNN",
+  "version": 1,
+  "inputShape": [28, 28, 1],
+  "layers": [
+    {
+      "id": "f2b2c3d4-e5f6-7890-abcd-ef1234567891",
+      "type": "input",
+      "params": {},
+      "position": { "x": 50, "y": 150 },
+      "nodeCount": 1
+    },
+    {
+      "id": "f3b2c3d4-e5f6-7890-abcd-ef1234567892",
+      "type": "conv2d",
+      "params": { "filters": 32, "kernelSize": 3, "stride": 1, "padding": "same" },
+      "activation": "relu",
+      "position": { "x": 270, "y": 150 }
+    },
+    {
+      "id": "f4b2c3d4-e5f6-7890-abcd-ef1234567893",
+      "type": "maxpool2d",
+      "params": { "poolSize": 2, "stride": 2 },
+      "position": { "x": 490, "y": 150 }
+    },
+    {
+      "id": "f5b2c3d4-e5f6-7890-abcd-ef1234567894",
+      "type": "conv2d",
+      "params": { "filters": 64, "kernelSize": 3, "stride": 1, "padding": "same" },
+      "activation": "relu",
+      "position": { "x": 710, "y": 150 }
+    },
+    {
+      "id": "f6b2c3d4-e5f6-7890-abcd-ef1234567895",
+      "type": "maxpool2d",
+      "params": { "poolSize": 2, "stride": 2 },
+      "position": { "x": 930, "y": 150 }
+    },
+    {
+      "id": "f7b2c3d4-e5f6-7890-abcd-ef1234567896",
+      "type": "flatten",
+      "params": {},
+      "position": { "x": 1150, "y": 150 }
+    },
+    {
+      "id": "f8b2c3d4-e5f6-7890-abcd-ef1234567897",
+      "type": "dense",
+      "params": { "units": 128 },
+      "activation": "relu",
+      "position": { "x": 1370, "y": 150 },
+      "nodeCount": 128
+    },
+    {
+      "id": "f9b2c3d4-e5f6-7890-abcd-ef1234567898",
+      "type": "dropout",
+      "params": { "rate": 0.5 },
+      "position": { "x": 1590, "y": 150 }
+    },
+    {
+      "id": "fab2c3d4-e5f6-7890-abcd-ef1234567899",
+      "type": "output",
+      "params": { "units": 10 },
+      "activation": "softmax",
+      "position": { "x": 1810, "y": 150 },
+      "nodeCount": 10
+    }
+  ],
+  "edges": [
+    { "from": "f2b2c3d4-e5f6-7890-abcd-ef1234567891", "to": "f3b2c3d4-e5f6-7890-abcd-ef1234567892" },
+    { "from": "f3b2c3d4-e5f6-7890-abcd-ef1234567892", "to": "f4b2c3d4-e5f6-7890-abcd-ef1234567893" },
+    { "from": "f4b2c3d4-e5f6-7890-abcd-ef1234567893", "to": "f5b2c3d4-e5f6-7890-abcd-ef1234567894" },
+    { "from": "f5b2c3d4-e5f6-7890-abcd-ef1234567894", "to": "f6b2c3d4-e5f6-7890-abcd-ef1234567895" },
+    { "from": "f6b2c3d4-e5f6-7890-abcd-ef1234567895", "to": "f7b2c3d4-e5f6-7890-abcd-ef1234567896" },
+    { "from": "f7b2c3d4-e5f6-7890-abcd-ef1234567896", "to": "f8b2c3d4-e5f6-7890-abcd-ef1234567897" },
+    { "from": "f8b2c3d4-e5f6-7890-abcd-ef1234567897", "to": "f9b2c3d4-e5f6-7890-abcd-ef1234567898" },
+    { "from": "f9b2c3d4-e5f6-7890-abcd-ef1234567898", "to": "fab2c3d4-e5f6-7890-abcd-ef1234567899" }
+  ],
+  "metadata": {
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "updatedAt": "2026-01-01T00:00:00.000Z"
+  }
+}

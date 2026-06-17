@@ -1,0 +1,13 @@
+node_modules
+**/node_modules
+**/dist
+.git
+.turbo
+.cursor
+nn-visualiser
+**/*.md
+.env
+.env.*
+!.env.example
+coverage
+*.log

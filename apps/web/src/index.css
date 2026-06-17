@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "Syne", "DM Sans", system-ui, sans-serif;
+
+  --color-background: oklch(1 0 0);
+  --color-foreground: oklch(0.2 0.02 260);
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.2 0.02 260);
+  --color-primary: oklch(0.48 0.14 265);
+  --color-primary-foreground: oklch(0.99 0 0);
+  --color-secondary: oklch(0.96 0.01 260);
+  --color-secondary-foreground: oklch(0.28 0.03 260);
+  --color-muted: oklch(0.965 0.008 260);
+  --color-muted-foreground: oklch(0.45 0.02 260);
+  --color-accent: oklch(0.96 0.012 260);
+  --color-accent-foreground: oklch(0.22 0.03 260);
+  --color-destructive: oklch(0.55 0.22 25);
+  --color-destructive-foreground: oklch(0.99 0 0);
+  --color-border: oklch(0.91 0.01 260);
+  --color-input: oklch(0.91 0.01 260);
+  --color-ring: oklch(0.48 0.14 265);
+  --color-success: oklch(0.55 0.14 155);
+  --color-warning: oklch(0.72 0.14 85);
+  --radius-lg: 0.75rem;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --color-background: oklch(0.14 0.02 260);
+  --color-foreground: oklch(0.96 0.01 260);
+  --color-card: oklch(0.17 0.02 260);
+  --color-card-foreground: oklch(0.96 0.01 260);
+  --color-primary: oklch(0.72 0.12 265);
+  --color-primary-foreground: oklch(0.14 0.02 260);
+  --color-secondary: oklch(0.22 0.02 260);
+  --color-secondary-foreground: oklch(0.92 0.01 260);
+  --color-muted: oklch(0.22 0.02 260);
+  --color-muted-foreground: oklch(0.68 0.02 260);
+  --color-accent: oklch(0.24 0.025 260);
+  --color-accent-foreground: oklch(0.96 0.01 260);
+  --color-destructive: oklch(0.62 0.2 25);
+  --color-destructive-foreground: oklch(0.98 0 0);
+  --color-border: oklch(0.28 0.02 260);
+  --color-input: oklch(0.28 0.02 260);
+  --color-ring: oklch(0.72 0.12 265);
+  --color-success: oklch(0.72 0.12 155);
+  --color-warning: oklch(0.78 0.12 85);
+}
+
+* {
+  border-color: var(--color-border);
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.react-flow__node {
+  font-size: 12px;
+}
+
+.react-flow__edge-path {
+  stroke-width: 2;
+}
+
+/* KaTeX — inherit theme colors */
+.math-block {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-muted);
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+}
+
+.math-block .katex {
+  color: var(--color-foreground);
+  font-size: 1rem;
+}
+
+.math-block .katex-display {
+  margin: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.math-block .katex-error {
+  color: var(--color-destructive);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
