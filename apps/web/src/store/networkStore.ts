@@ -33,6 +33,7 @@ interface NetworkState {
   updateArchitecture: (updater: (arch: NetworkArchitecture) => void) => void;
 
   addLayer: (type: LayerType) => void;
+  addLayerAt: (type: LayerType, position: { x: number; y: number }) => void;
   removeLayer: (layerId: string) => void;
   updateLayer: (layerId: string, updates: Partial<LayerConfig>) => void;
   moveLayer: (layerId: string, position: { x: number; y: number }) => void;
@@ -45,7 +46,7 @@ interface NetworkState {
   setViewMode: (mode: CanvasViewMode) => void;
   toggleShowParamMatrices: () => void;
   copySelectedLayer: () => void;
-  pasteLayer: () => void;
+  pasteLayer: (position?: { x: number; y: number }) => void;
 
   setSelectedLayerId: (id: string | null) => void;
   toggleConnectMode: () => void;
@@ -148,10 +149,9 @@ export const useNetworkStore = create<NetworkState>()(
         });
       },
 
-      addLayer: (type) => {
+      addLayerAt: (type, position) => {
         get().updateArchitecture((arch) => {
-          const x = arch.layers.length * 220 + 50;
-          const layer = createLayer(type, { x, y: 150 });
+          const layer = createLayer(type, position);
           if (type === 'dense' || type === 'output') {
             layer.nodeCount = Number(layer.params.units ?? 64);
           }
@@ -162,6 +162,15 @@ export const useNetworkStore = create<NetworkState>()(
             arch.edges.push({ from: prev.id, to: layer.id, weight: Math.random() * 2 - 1 });
           }
         });
+        const arch = get().getActiveArchitecture();
+        const added = arch?.layers[arch.layers.length - 1];
+        if (added) set({ selectedLayerId: added.id });
+      },
+
+      addLayer: (type) => {
+        const arch = get().getActiveArchitecture();
+        const x = (arch?.layers.length ?? 0) * 220 + 50;
+        get().addLayerAt(type, { x, y: 150 });
       },
 
       removeLayer: (layerId) => {
@@ -247,7 +256,7 @@ export const useNetworkStore = create<NetworkState>()(
         }
       },
 
-      pasteLayer: () => {
+      pasteLayer: (position) => {
         const { clipboardLayer, selectedLayerId } = get();
         if (!clipboardLayer) return;
 
@@ -257,7 +266,7 @@ export const useNetworkStore = create<NetworkState>()(
             ...JSON.parse(JSON.stringify(source)),
             id: generateId(),
             name: source.name ? `${source.name} (copy)` : undefined,
-            position: {
+            position: position ?? {
               x: source.position.x + 40,
               y: source.position.y + 40,
             },

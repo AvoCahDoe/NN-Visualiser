@@ -134,7 +134,7 @@ export function Toolbar() {
       <Button
         variant="secondary"
         size="sm"
-        onClick={pasteLayer}
+        onClick={() => pasteLayer()}
         disabled={!clipboardLayer}
         title="Ctrl+V"
       >

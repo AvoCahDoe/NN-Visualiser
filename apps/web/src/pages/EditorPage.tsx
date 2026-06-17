@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { Toolbar } from '@/components/Toolbar';
 import { NetworkCanvas } from '@/components/NetworkCanvas';
 import { LayerInspector } from '@/components/LayerInspector';
-import { EditorSidebar } from '@/components/EditorSidebar';
+import { EditorControlPanel } from '@/components/editor/EditorControlPanel';
 
 export function EditorPage() {
   return (
@@ -18,12 +17,9 @@ export function EditorPage() {
         </Link>
       </div>
       <div className="flex min-h-0 flex-1">
-        <EditorSidebar />
-        <div className="flex min-w-0 flex-1 flex-col">
-          <Toolbar />
-          <div className="min-h-0 flex-1">
-            <NetworkCanvas />
-          </div>
+        <EditorControlPanel />
+        <div className="min-h-0 min-w-0 flex-1">
+          <NetworkCanvas />
         </div>
         <LayerInspector />
       </div>
