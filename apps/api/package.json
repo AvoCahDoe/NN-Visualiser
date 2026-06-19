@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "pnpm --dir ../web run vercel-build",
+    "build:server": "pnpm --dir ../.. --filter @nnviz/shared build && pnpm --dir ../.. --filter @nnviz/nn-math build && tsc",
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit"
   },

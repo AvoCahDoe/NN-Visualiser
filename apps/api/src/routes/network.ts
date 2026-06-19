@@ -31,7 +31,7 @@ networkRouter.post('/shapes', (req, res) => {
     return;
   }
   const shapes = computeShapeChain(parsed.data);
-  const totalParams = shapes.reduce((sum, s) => sum + s.paramCount, 0);
+  const totalParams = shapes.reduce((sum: number, s) => sum + s.paramCount, 0);
   res.json({ shapes, totalParams });
 });
 

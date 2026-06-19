@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "pnpm --filter @nnviz/web... build && pnpm --parallel --filter @nnviz/web --filter @nnviz/api dev",
-    "build": "pnpm --filter @nnviz/web... build && pnpm --filter @nnviz/api... build",
+    "build": "pnpm --filter @nnviz/web... build",
+    "build:all": "pnpm --filter @nnviz/web... build && pnpm --filter @nnviz/api run build:server",
     "build:web": "pnpm --filter @nnviz/web... build",
     "vercel-build": "pnpm --filter @nnviz/web... build",
     "lint": "pnpm -r lint",

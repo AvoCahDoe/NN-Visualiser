@@ -1,51 +1,40 @@
 # Deploy to Vercel
 
-This is a **pnpm monorepo**. The React app lives in `apps/web`. Deploy that folder only.
+## Your project is likely using Root Directory `apps/api`
 
-## Vercel project settings
+If build logs show `@nnviz/api` and `pnpm run build`, that is expected — **this repo now redirects that to the React app build**.
 
-In [Vercel → Project Settings → General](https://vercel.com/docs/projects/project-configuration):
+After pulling latest, `pnpm run build` in `apps/api` runs the **web** build and outputs to `apps/web/dist`.
+
+## Recommended Vercel settings
 
 | Setting | Value |
 |---------|--------|
-| **Root Directory** | `apps/web` |
-| **Framework Preset** | Vite |
-| **Build Command** | *(leave empty — uses `apps/web/vercel.json`)* |
-| **Output Directory** | `dist` |
-| **Install Command** | *(leave empty — uses `apps/web/vercel.json`)* |
+| **Root Directory** | `apps/web` *(preferred)* or `apps/api` *(works with latest config)* |
+| **Output Directory** | `dist` if root is `apps/web`, or leave empty if root is `apps/api` |
+| **Build Command** | *(leave empty — uses `vercel.json`)* |
+| **Framework** | Vite |
 
-The `apps/web/vercel.json` file runs `pnpm install` and `pnpm vercel-build` from the repo root so workspace packages (`packages/shared`, `packages/nn-math`) are built before Vite.
+If you set a custom **Build Command** to `pnpm run build`, that is fine with the latest code — it builds the React app.
 
 ## Environment variables
 
 | Variable | Value |
 |----------|--------|
-| `VITE_API_URL` | Leave **empty** (same-origin `/api/*` serverless routes in `apps/web/api/`) |
+| `VITE_API_URL` | Leave **empty** |
 
-## What gets deployed
+## Success check
+
+Build logs should show:
 
 ```
-apps/web/
-├── dist/          ← Vite build output (static React app)
-└── api/           ← Serverless functions (/api/health, /api/validate, …)
+@nnviz/web build
+tsc -b && vite build
+✓ built in ...
 ```
 
-## CLI
+You should **not** see `apps/api` running `tsc` alone.
 
-```bash
-pnpm install
-cd apps/web
-npx vercel
-```
+## Repo root deploy
 
-## Troubleshooting
-
-**"No Output Directory named dist found"**
-
-- Root Directory **must** be `apps/web` (not the repo root).
-- Output Directory **must** be `dist` (relative to `apps/web`).
-- Remove any conflicting overrides in the Vercel dashboard.
-
-**Build fails on workspace packages**
-
-Ensure install runs from the monorepo root. `apps/web/vercel.json` uses `cd ../.. && pnpm install` — do not change Root Directory to the repo root.
+If **Root Directory** is empty, root `vercel.json` builds `apps/web/dist`. Serverless routes live in `apps/web/api/` when using `apps/web` as root, or `apps/api/api/` when using `apps/api` as root.
