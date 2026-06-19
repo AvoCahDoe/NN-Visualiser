@@ -60,18 +60,23 @@ pnpm docker:down
 
 ## Deployment
 
-### Frontend (Vercel)
+### Vercel (recommended)
 
-1. Set root directory to `apps/web`
-2. Build command: `pnpm build`
-3. Output directory: `dist`
-4. Environment variable: `VITE_API_URL=https://your-api-url.com`
+Full-stack deploy from the **repo root** — React app + serverless API.
 
-### Backend (Railway / Render / Fly)
+1. Import the repo on [Vercel](https://vercel.com/new)
+2. Leave **Root Directory** empty (uses root `vercel.json`)
+3. Leave `VITE_API_URL` **unset** — `/api/*` routes are included
+4. Deploy
 
-1. Deploy `apps/api`
-2. Set `PORT` and optionally `CORS_ORIGIN`
-3. Start command: `pnpm start` (after build)
+See [VERCEL.md](VERCEL.md) for details.
+
+### Backend (optional — separate host)
+
+The Express app in `apps/api` is for local dev and Docker. On Vercel, API logic runs as serverless functions in `apps/web/api/`. To use a standalone API instead:
+
+1. Deploy `apps/api` to Railway / Render / Fly
+2. Set `VITE_API_URL=https://your-api-url.com` in Vercel
 
 ## API Endpoints
 
@@ -88,10 +93,6 @@ pnpm docker:down
 **Frontend:** React 19, Vite, React Flow, Zustand, TanStack Query, Tailwind CSS, Framer Motion, KaTeX, mathjs
 
 **Backend:** Express, Helmet, CORS, Zod
-
-## Legacy
-
-The original Angular app remains in `nn-visualiser/` for reference. The new React app supersedes it.
 
 ## License
 
