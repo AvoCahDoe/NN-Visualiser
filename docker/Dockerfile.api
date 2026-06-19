@@ -15,7 +15,7 @@ COPY packages/shared packages/shared
 COPY packages/nn-math packages/nn-math
 COPY apps/api apps/api
 
-RUN pnpm --filter @nnviz/shared build && pnpm --filter @nnviz/nn-math build && pnpm --filter @nnviz/api run build:server
+RUN pnpm --filter @nnviz/api... build
 
 FROM node:22-alpine AS runner
 
