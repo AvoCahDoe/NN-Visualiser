@@ -62,14 +62,15 @@ pnpm docker:down
 
 ### Vercel (recommended)
 
-Full-stack deploy from the **repo root** — React app + serverless API.
+Full-stack deploy: React app + serverless API.
 
 1. Import the repo on [Vercel](https://vercel.com/new)
-2. Leave **Root Directory** empty (uses root `vercel.json`)
-3. Leave `VITE_API_URL` **unset** — `/api/*` routes are included
-4. Deploy
+2. Set **Root Directory** to `apps/web`
+3. Leave **Output Directory** blank (uses `vercel.json` → `dist`)
+4. Leave `VITE_API_URL` **unset** — `/api/*` routes are included
+5. Deploy
 
-See [VERCEL.md](VERCEL.md) for details.
+See [VERCEL.md](VERCEL.md) for troubleshooting.
 
 ### Backend (optional — separate host)
 

@@ -3,6 +3,5 @@
   "installCommand": "pnpm install",
   "buildCommand": "pnpm turbo build --filter=@nnviz/web",
   "outputDirectory": "apps/web/dist",
-  "framework": "vite",
   "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }]
 }
