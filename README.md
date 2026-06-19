@@ -45,15 +45,16 @@ pnpm build
 
 ## Deployment (Vercel)
 
-Deploy the **React app folder** only:
+Deploy the **React app folder** only — not `apps/api`.
 
 | Vercel setting | Value |
 |----------------|--------|
 | **Root Directory** | `apps/web` |
 | **Output Directory** | `dist` |
 | **Framework** | Vite |
+| **Build Command** | *(leave empty)* |
 
-Full instructions: [VERCEL.md](VERCEL.md)
+If the build log shows `@nnviz/api`, the Root Directory is wrong. See [VERCEL.md](VERCEL.md).
 
 ## Docker
 
