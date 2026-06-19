@@ -1,22 +1,18 @@
 {
   "name": "neural-network-visualizer",
   "private": true,
-  "dependencies": {
-    "@nnviz/nn-math": "workspace:*",
-    "@nnviz/shared": "workspace:*"
-  },
   "scripts": {
-    "dev": "turbo dev",
-    "build": "turbo build",
-    "lint": "turbo lint",
-    "typecheck": "turbo typecheck",
+    "dev": "pnpm --filter @nnviz/web... build && pnpm --parallel --filter @nnviz/web --filter @nnviz/api dev",
+    "build": "pnpm --filter @nnviz/web... build && pnpm --filter @nnviz/api... build",
+    "build:web": "pnpm --filter @nnviz/web... build",
+    "vercel-build": "pnpm --filter @nnviz/web... build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm --filter @nnviz/web... build && pnpm -r typecheck",
     "docker:up": "docker compose up --build -d",
     "docker:down": "docker compose down",
     "docker:logs": "docker compose logs -f"
   },
   "devDependencies": {
-    "@vercel/node": "^5.3.0",
-    "turbo": "^2.5.4",
     "typescript": "^5.8.3"
   },
   "packageManager": "pnpm@10.17.1"

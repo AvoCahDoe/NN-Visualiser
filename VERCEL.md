@@ -1,43 +1,51 @@
-# Vercel deployment
+# Deploy to Vercel
 
-Deploy the full app (React frontend + API) from the **repository root**.
+This is a **pnpm monorepo**. The React app lives in `apps/web`. Deploy that folder only.
 
-## Quick deploy
+## Vercel project settings
 
-1. Import the repo on [vercel.com/new](https://vercel.com/new)
-2. Leave **Root Directory** empty (repo root)
-3. Vercel reads `vercel.json` at the repo root — no extra config needed
-4. Leave `VITE_API_URL` **unset** — same-origin `/api/*` serverless routes are included
+In [Vercel → Project Settings → General](https://vercel.com/docs/projects/project-configuration):
+
+| Setting | Value |
+|---------|--------|
+| **Root Directory** | `apps/web` |
+| **Framework Preset** | Vite |
+| **Build Command** | *(leave empty — uses `apps/web/vercel.json`)* |
+| **Output Directory** | `dist` |
+| **Install Command** | *(leave empty — uses `apps/web/vercel.json`)* |
+
+The `apps/web/vercel.json` file runs `pnpm install` and `pnpm vercel-build` from the repo root so workspace packages (`packages/shared`, `packages/nn-math`) are built before Vite.
 
 ## Environment variables
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `VITE_API_URL` | No | Leave empty on Vercel. Set only if using a separate Express API host. |
+| Variable | Value |
+|----------|--------|
+| `VITE_API_URL` | Leave **empty** (same-origin `/api/*` serverless routes in `apps/web/api/`) |
 
 ## What gets deployed
 
-| Path | Source |
-|------|--------|
-| Static frontend | `apps/web/dist` (Vite build) |
-| `/api/*` | `api/` serverless functions at repo root |
-
-## API routes
-
-- `GET /api/health`
-- `POST /api/validate`
-- `POST /api/shapes`
-- `POST /api/demo/init`
-- `POST /api/demo/step`
+```
+apps/web/
+├── dist/          ← Vite build output (static React app)
+└── api/           ← Serverless functions (/api/health, /api/validate, …)
+```
 
 ## CLI
 
 ```bash
 pnpm install
+cd apps/web
 npx vercel
 ```
 
-## Local dev
+## Troubleshooting
 
-- Frontend: `pnpm dev` → http://localhost:5180
-- API (local): Express on http://localhost:4000, proxied via Vite `/api`
+**"No Output Directory named dist found"**
+
+- Root Directory **must** be `apps/web` (not the repo root).
+- Output Directory **must** be `dist` (relative to `apps/web`).
+- Remove any conflicting overrides in the Vercel dashboard.
+
+**Build fails on workspace packages**
+
+Ensure install runs from the monorepo root. `apps/web/vercel.json` uses `cd ../.. && pnpm install` — do not change Root Directory to the repo root.

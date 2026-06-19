@@ -5,8 +5,8 @@ An interactive React application for designing, visualizing, and understanding n
 ## Architecture
 
 ```
-apps/web     → React + Vite frontend (deploy to Vercel)
-apps/api     → Express REST API (deploy to Railway/Render/Fly)
+apps/web          → React + Vite frontend (deploy this folder to Vercel)
+apps/api          → Express REST API (local dev & Docker only)
 packages/shared   → Zod schemas & shared types
 packages/nn-math  → Shape calculations & demo training steps
 ```
@@ -43,7 +43,19 @@ pnpm dev
 pnpm build
 ```
 
-### Docker
+## Deployment (Vercel)
+
+Deploy the **React app folder** only:
+
+| Vercel setting | Value |
+|----------------|--------|
+| **Root Directory** | `apps/web` |
+| **Output Directory** | `dist` |
+| **Framework** | Vite |
+
+Full instructions: [VERCEL.md](VERCEL.md)
+
+## Docker
 
 ```bash
 pnpm docker:up
@@ -57,27 +69,6 @@ Stop containers:
 ```bash
 pnpm docker:down
 ```
-
-## Deployment
-
-### Vercel (recommended)
-
-Full-stack deploy: React app + serverless API.
-
-1. Import the repo on [Vercel](https://vercel.com/new)
-2. Set **Root Directory** to `apps/web`
-3. Leave **Output Directory** blank (uses `vercel.json` → `dist`)
-4. Leave `VITE_API_URL` **unset** — `/api/*` routes are included
-5. Deploy
-
-See [VERCEL.md](VERCEL.md) for troubleshooting.
-
-### Backend (optional — separate host)
-
-The Express app in `apps/api` is for local dev and Docker. On Vercel, API logic runs as serverless functions in `apps/web/api/`. To use a standalone API instead:
-
-1. Deploy `apps/api` to Railway / Render / Fly
-2. Set `VITE_API_URL=https://your-api-url.com` in Vercel
 
 ## API Endpoints
 
