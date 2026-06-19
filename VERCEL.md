@@ -1,40 +1,69 @@
 # Deploy to Vercel
 
-## Your project is likely using Root Directory `apps/api`
+## Your site is already live (verified via Vercel MCP)
 
-If build logs show `@nnviz/api` and `pnpm run build`, that is expected — **this repo now redirects that to the React app build**.
+**Production URL:** https://nn-visualiser-git-main-avocahdoes-projects.vercel.app
 
-After pulling latest, `pnpm run build` in `apps/api` runs the **web** build and outputs to `apps/web/dist`.
+The last **successful** deployment used commit `5e1ccf4` with Root Directory **`apps/web`**.
 
-## Recommended Vercel settings
+## Why redeploys fail
+
+Failed builds show:
+
+```
+Commit: c2df77d
+> @nnviz/api@1.0.0 build
+> tsc
+```
+
+That happens when you **Redeploy an old failed deployment** from commit `c2df77d`, which:
+
+- Uses Root Directory **`apps/api`** (Express, not React)
+- Runs `tsc` instead of the Vite build
+
+**Do not** click "Redeploy" on old failed deployments.
+
+## Fix production (pick one)
+
+### Option A — Promote the working deployment (fastest)
+
+1. Open [Vercel → nn-visualiser → Deployments](https://vercel.com/avocahdoes-projects/nn-visualiser)
+2. Find the deployment with status **Ready** and commit message `..` (`5e1ccf4`)
+3. Click **⋯ → Promote to Production**
+
+### Option B — Redeploy latest `main`
+
+1. Push any commit to `main` (or use **Deploy** → **Redeploy** on the **Ready** `5e1ccf4` deployment)
+2. Ensure commit is **`5e1ccf4` or newer** — not `c2df77d`
+
+### Option C — Fix project settings (recommended)
+
+In **Project Settings → General**:
 
 | Setting | Value |
 |---------|--------|
-| **Root Directory** | `apps/web` *(preferred)* or `apps/api` *(works with latest config)* |
-| **Output Directory** | `dist` if root is `apps/web`, or leave empty if root is `apps/api` |
-| **Build Command** | *(leave empty — uses `vercel.json`)* |
-| **Framework** | Vite |
+| **Root Directory** | `apps/web` |
+| **Framework Preset** | Vite |
+| **Build Command** | *(empty — uses `vercel.json`)* |
+| **Output Directory** | `dist` |
+| **Install Command** | *(empty — uses `vercel.json`)* |
 
-If you set a custom **Build Command** to `pnpm run build`, that is fine with the latest code — it builds the React app.
+Then deploy from latest `main`.
+
+## Expected successful build log
+
+```
+Running "install" command: `pnpm install --dir ../..`...
+> @nnviz/web@1.0.0 vercel-build
+> pnpm --dir ../.. --filter @nnviz/web... build
+packages/shared build: Done
+packages/nn-math build: Done
+apps/web build$ tsc -b && vite build
+✓ built in ...
+```
 
 ## Environment variables
 
 | Variable | Value |
 |----------|--------|
 | `VITE_API_URL` | Leave **empty** |
-
-## Success check
-
-Build logs should show:
-
-```
-@nnviz/web build
-tsc -b && vite build
-✓ built in ...
-```
-
-You should **not** see `apps/api` running `tsc` alone.
-
-## Repo root deploy
-
-If **Root Directory** is empty, root `vercel.json` builds `apps/web/dist`. Serverless routes live in `apps/web/api/` when using `apps/web` as root, or `apps/api/api/` when using `apps/api` as root.
